@@ -26,7 +26,7 @@
 
     <div class="container">
 
-        <h1 id="name" class="page-header">ENEA</h1>
+        <h1 id="name" class="page-header"></h1>
 
         <p>&nbsp;</p>
 
@@ -56,7 +56,7 @@
             <div class="col-lg-12 col-md-12 col-xs-12">
                 <ul id="targets" class="plan plan2 featured">
                     <li class="date">
-                        <span class="dayResult">OGGI</span>
+                        <span class="dayResult">IERI</span>
                     </li>
                 </ul>
             </div>
@@ -89,12 +89,13 @@
       <script>
           $(document).ready(function () {
               var name = $.url().param('name');
-              if (name == "" || name == null) {
+              if (name == "" || name == null) {                  
                   $("#targets").append('<li><a href="index.html?name=enea">Enea</a></li>');
                   $("#targets").append('<li><a href="index.html?name=emma">Emma</a></li>');
                   return;
               }
-              var today=new Date();
+              $("#name").text(name);
+              var today=new Date()-1;
             var jqxhr = $.getJSON("data/data.json", function () {
                 console.log("success");
             })
@@ -114,16 +115,18 @@
                                         $("#targets").append('<li><button class="btn btn-danger"><i class="fa fa-times"></i>   ' + targets[j].targetName + '</button></li>');
                                     }                                    
                                 }
+                                if (days[y].result) {
+                                    $("#targets").append('<li class="plan-action"><div class="success"><i class="dayResult fa fa-smile-o"></i></div></li>');
+                                }
+                                else {
+                                    $("#targets").append('<li class="plan-action"><div class="danger"><i class="dayResult fa fa-frown-o"></i></div></li>');
+                                }
                                 break;
                             }
-                        }
-                        if (data[i].result) {
-                            $("#targets").append('<li class="plan-action"><div class="success"><i class="dayResult fa fa-smile-o"></i></div></li>');
-                        }
-                        else {
-                            $("#targets").append('<li class="plan-action"><div class="danger"><i class="dayResult fa fa-frown-o"></i></div></li>');
-                        }
+                            
+                        }                        
                         $("#points").text(data[i].total)
+                        break;
                     }
                 }                
                 console.log("second success");
@@ -141,7 +144,11 @@
             jqxhr.complete(function () {
                 console.log("second complete");
             });              
-          });          
+          });     
+          
+          function loadDay(userData, day){
+              
+          }     
       </script>
 </body>
 </html>

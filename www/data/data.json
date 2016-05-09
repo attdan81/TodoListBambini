@@ -1,11 +1,14 @@
-[{
-  "user-id": 1,
-  "name": "enea",
-  "total": "0",
-  "days": []
-}, {
-  "user-id": 2,
-  "name": "emma",
-  "total": "0",
-  "days": []
-}]
+[
+    {
+        "user-id": 1,
+        "name": "enea",
+        "total": "0",
+        "days": []      
+    },
+    {
+        "user-id": 2,
+        "name": "emma",
+        "total": "0",
+        "days": []
+    }
+]

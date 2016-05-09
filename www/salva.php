@@ -11,7 +11,8 @@ foreach($dati as $d){
 	if ($d->name==$name){
 		$bResult=false;
 		if ($colazione=="true" && $ordine=="true" && $compiti=="true"){
-			$bResult=true;
+			$bResult=true;	
+			$d->total=$d->total+1;		
 		}
 		$days=$d->days;		
 		$day=array("date" => $date,
