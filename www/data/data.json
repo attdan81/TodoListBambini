@@ -1,39 +1,11 @@
-[
-    {    
-        "user-id":1,
-        "name":"enea",
-        "total": "0",
-        "days": [{
-                    "day": "2016-05-09",
-                    "result": true,
-                    "targets":[
-                        {"target1": true,
-                        "target2": false,
-                        "target3": true}
-                    ],
-                    "photos": [
-                        {"id":1,
-                        "path":"foto1.png"},
-                        {"id":2,
-                        "path":"foto2.png"}
-                    ]
-                },
-                {
-                    "day": "2016-05-09",
-                    "result": true,
-                    "targets":[
-                        {"target1": true,
-                        "target2": false,
-                        "target3": true}
-                    ],
-                    "photos": [
-                        {"id":1,
-                        "path":"foto1.png"},
-                        {"id":2,
-                        "path":"foto2.png"}
-                    ]
-                }
-        ]
-        
-    }
-]
+[{
+  "user-id": 1,
+  "name": "enea",
+  "total": "0",
+  "days": []
+}, {
+  "user-id": 2,
+  "name": "emma",
+  "total": "0",
+  "days": []
+}]

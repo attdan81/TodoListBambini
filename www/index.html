@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pricing Table</title>
+    <title>Bravo Bambino</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
-
+    <link href="css/custom.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,12 +26,12 @@
 
     <div class="container">
 
-        <h1 class="page-header">ENEA</h1>
+        <h1 id="name" class="page-header">ENEA</h1>
 
         <p>&nbsp;</p>
 
         <div class="row flat">
-            <div class="col-lg-6 col-md-6 col-xs-12">
+            <!--<div class="col-lg-6 col-md-6 col-xs-12">
                 <ul class="plan plan1">
                     <li class="plan-name">
                         IERI
@@ -51,28 +51,31 @@
                 </ul>
             </div>
             
-            <div class=""></div>
+            <div class=""></div>-->
 
-            <div class="col-lg-6 col-md-6 col-xs-12">
-                <ul class="plan plan2 featured">
-                    <li class="plan-name">
-                        OGGI
-                    </li>
-                    <li class="plan-price">
-                        <button class="btn btn-success"><i class="fa fa-check"></i></button> <strong>Colazione, denti, vestiti</strong>
-                    </li>
-                    <li>
-                        <button class="btn btn-success"><i class="fa fa-check"></i></button> <strong>Mettere a posto, fare ordine</strong>
-                    </li>
-                    <li>
-                        <button class="btn btn-success"><i class="fa fa-check"></i></button> <strong>Andare a nanna</strong>
-                    </li> 
-                    <li class="plan-action">
-                        <a href="#" class="btn btn-danger btn-lg">Signup</a>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <ul id="targets" class="plan plan2 featured">
+                    <li class="date">
+                        <span class="dayResult">OGGI</span>
                     </li>
                 </ul>
             </div>
 </div>
+
+      <div class="row">
+          <div class="col-lg-12">
+              <hr />
+          </div>
+      </div>
+
+      <div class="row flat">
+          <div class="col-lg-12">
+              <ul class="plan plan2 featured">
+                  <li class="plan plan-action"><i class="fa fa-euro dayResult"></i></li>
+                  <li  class="plan plan-action"><span id="points" class="dayResult"></span></li>
+            </ul>             
+          </div>
+      </div>
 
 </div> <!-- /container -->
 
@@ -81,5 +84,64 @@
     <p class="text-muted credit">By <a target="_blank" href="http://shapebootstrap.net">shapebootstrap.net</a></p>
 </div>
 </div>
+      <script src="js/jquery-1.12.3.min.js"></script>
+      <script src="js/purl.js"></script>
+      <script>
+          $(document).ready(function () {
+              var name = $.url().param('name');
+              if (name == "" || name == null) {
+                  $("#targets").append('<li><a href="index.html?name=enea">Enea</a></li>');
+                  $("#targets").append('<li><a href="index.html?name=emma">Emma</a></li>');
+                  return;
+              }
+              var today=new Date();
+            var jqxhr = $.getJSON("data/data.json", function () {
+                console.log("success");
+            })
+            .done(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].name == name) {
+                        var days = data[i].days;
+                        for (var y = 0; y < days.length; y++) {
+                            var d=new Date(days[y].date);
+                            if (d.getDate() == today.getDate()) {
+                                var targets = days[y].targets;
+                                for (var j = 0; j < targets.length; j++) {
+                                    if (targets[j].targetResult) {
+                                        $("#targets").append('<li><button class="btn btn-success"><i class="fa fa-check"></i>  '+targets[j].targetName+'</button></li>');
+                                    }
+                                    else {
+                                        $("#targets").append('<li><button class="btn btn-danger"><i class="fa fa-times"></i>   ' + targets[j].targetName + '</button></li>');
+                                    }                                    
+                                }
+                                break;
+                            }
+                        }
+                        if (data[i].result) {
+                            $("#targets").append('<li class="plan-action"><div class="success"><i class="dayResult fa fa-smile-o"></i></div></li>');
+                        }
+                        else {
+                            $("#targets").append('<li class="plan-action"><div class="danger"><i class="dayResult fa fa-frown-o"></i></div></li>');
+                        }
+                        $("#points").text(data[i].total)
+                    }
+                }                
+                console.log("second success");
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+
+            // Perform other work here ...
+
+            // Set another completion function for the request above
+            jqxhr.complete(function () {
+                console.log("second complete");
+            });              
+          });          
+      </script>
 </body>
 </html>

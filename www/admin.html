@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+
+</head>
+<body>
+    <form id="dayUpload">
+        <select id="name" class="form-group">
+            <option>enea</option>
+            <option>emma</option>
+        </select>
+        <input type="datetime" id="datepicker" class="form-group" />
+        colazione: <input type="checkbox" id="colazione" />
+        compiti: <input type="checkbox" id="compiti" />
+        ordine: <input type="checkbox" id="ordine" />
+        <button type="button" class="btn btn-success" onclick="salva()">Salva</button>
+    </form>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/purl.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+        function salva() {
+            var jqxhr = $.ajax({
+                url: "salva.php",
+                data: {
+                    name: $("#name").val(),
+                    date: $("#datepicker").val(),
+                    colazione: $("#compiti").prop('checked'),
+                    compiti: $("#colazione").prop('checked'),
+                    ordine: $("#ordine").prop('checked')
+                    }
+                })
+              .done(function () {
+                  
+              })
+              .fail(function () {
+                  //alert("error");
+              })
+              .always(function () {
+                  //alert("complete");
+              });
+
+            // Perform other work here ...
+
+            // Set another completion function for the request above
+            jqxhr.always(function () {
+                //alert("second complete");
+            });
+        }
+    </script>
+</body>
+</html>
